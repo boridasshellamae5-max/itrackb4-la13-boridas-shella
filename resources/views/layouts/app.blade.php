@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Book App')</title>
+    <title>LibSys Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('books.index') }}">Book App</a>
+            <a class="navbar-brand" href="{{ route('subjects.index') }}">LibSys Portal</a>
             <div class="collapse navbar-collapse">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="{{ route('books.index') }}">All Books</a>
-                    <a class="nav-link" href="{{ route('books.create') }}">Add New Book</a>
+                <div class="navbar-nav me-auto">
+                    <a class="nav-link" href="{{ url('/') }}">Home</a>
+                    <a class="nav-link" href="{{ route('subjects.index') }}">Subjects</a>
+                    <a class="nav-link" href="#">Teachers</a>
                 </div>
             </div>
+            <a href="{{ route('subjects.create') }}" class="btn btn-success">+ Add New Subject</a>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+    <div class="container mt-3">
         @yield('content')
     </div>
 

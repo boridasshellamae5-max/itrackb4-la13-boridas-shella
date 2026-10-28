@@ -2,27 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Book extends Model
+class Genre extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name'];
 
-    protected $fillable = [
-        'title',
-        'author',
-        'year',
-        'category',
-        'is_featured',
-        'description',
-    ];
-
-    protected function casts(): array
+    public function books(): HasMany
     {
-        return [
-            'is_featured' => 'boolean',
-            'year'        => 'integer',
-        ];
+        return $this->hasMany(Book::class);
     }
 }

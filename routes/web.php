@@ -7,8 +7,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Movies routes
-Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
-Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
-Route::post('/movies', [MovieController::class, 'store'])->name('movies.store');
-Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
+// ✅ Dito — pinalitan ang lumang linya na may ->only([...])
+Route::resource('movies', MovieController::class);

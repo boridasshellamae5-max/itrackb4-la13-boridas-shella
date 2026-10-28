@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Add Movie</title>
+    <title>Add New Movie</title>
     <style>
         body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
         label { display: block; margin-top: 1rem; font-weight: bold; }
         input, select, textarea { margin-top: 0.3rem; width: 100%; padding: 0.5rem; }
         button { margin-top: 1.5rem; padding: 0.7rem 1.5rem; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer; }
         .error { color: red; margin-top: 0.3rem; font-size: 0.9rem; }
+        .cancel { margin-left: 1rem; color: #666; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -49,14 +50,13 @@
     </select>
     @error('is_featured') <p class="error">{{ $message }}</p> @enderror
 
-    <label>Description (optional)</label>
+    <label>Description</label>
     <textarea name="description" rows="4">{{ old('description') }}</textarea>
     @error('description') <p class="error">{{ $message }}</p> @enderror
 
     <button type="submit">Add Movie</button>
+    <a href="{{ route('movies.index') }}" class="cancel">Cancel</a>
 </form>
-
-<p><a href="{{ route('movies.index') }}">← Back to List</a></p>
 
 </body>
 </html>

@@ -11,27 +11,21 @@ class MovieController extends Controller
 {
     public function index(Request $request)
     {
-        // I-enable ang query log para makita ang bilang
         DB::enableQueryLog();
 
         $genreId = $request->query('genre_id');
-
         $query = Movie::query();
 
         if ($genreId) {
             $query->where('genre_id', $genreId);
         }
 
-        // with() = eager loading → 2 queries para sa movies + genres
         $movies = $query->with('genre')->get();
-
-        // Dagdag na query para sa dropdown/buttons → kabuuan 3
         $genres = Genre::all();
 
         return view('movies.index', compact('movies', 'genres'));
     }
 
-    // ✅ Ito ang nawawala — create() method
     public function create()
     {
         $genres = Genre::all();
@@ -54,9 +48,38 @@ class MovieController extends Controller
         return redirect()->route('movies.index');
     }
 
-    public function show($id)
+    public function show(Movie $movie)
     {
-        $movie = Movie::findOrFail($id);
         return view('movies.show', compact('movie'));
+    }
+
+    public function edit(Movie $movie)
+    {
+        $genres = Genre::all();
+        return view('movies.edit', compact('movie', 'genres'));
+    }
+
+    public function update(Request $request, Movie $movie)
+    {
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
+            'director'    => 'required|string|max:255',
+            'year'        => 'required|integer|min:1888|max:2100',
+            'is_featured' => 'required|boolean',
+            'genre_id'    => 'required|exists:genres,id',
+            'description' => 'nullable|string|max:1000',
+        ]);
+
+        $movie->update($validated);
+
+        return redirect()->route('movies.index');
+    }
+
+    public function destroy(Movie $movie)
+    {
+        $movie->delete();
+
+        return redirect()->route('movies.index')
+            ->with('success', 'Movie deleted successfully.');
     }
 }

@@ -9,8 +9,8 @@ class Genre extends Model
 {
     protected $fillable = ['name'];
 
-    public function movies(): HasMany
+    public function books(): HasMany
     {
-        return $this->hasMany(Movie::class);
+        return $this->hasMany(Book::class);
     }
 }

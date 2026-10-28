@@ -14,9 +14,9 @@ return new class extends Migration
             $table->string('director');
             $table->integer('year');
             $table->boolean('is_featured');
-            $table->string('genre');
             $table->string('description')->nullable();
             $table->timestamps();
+            // WALA DITO ANG genre o genre_id — idaragdag sa pangalawang migration
         });
     }
 
