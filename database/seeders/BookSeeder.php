@@ -10,10 +10,12 @@ class BookSeeder extends Seeder
 {
     public function run()
     {
+        // ✅ UNANG GAWIN: Gumawa muna ng Genres
         $fantasy = Genre::create(['name' => 'Fantasy']);
         $classic = Genre::create(['name' => 'Classic']);
         $romance = Genre::create(['name' => 'Romance']);
 
+        // ✅ PANGALAWA: Gumawa ng Books — gamitin ang tamang column na genre_id
         Book::create([
             'title'    => 'Harry Potter and the Philosopher\'s Stone',
             'author'   => 'J.K. Rowling',
@@ -47,13 +49,6 @@ class BookSeeder extends Seeder
             'author'   => 'William Shakespeare',
             'year'     => 1597,
             'genre_id' => $romance->id,
-        ]);
-
-        Book::create([
-            'title'    => 'Rapunzel',
-            'author'   => 'Amor Tonio',
-            'year'     => 1892,
-            'genre_id' => $fantasy->id,
         ]);
     }
 }

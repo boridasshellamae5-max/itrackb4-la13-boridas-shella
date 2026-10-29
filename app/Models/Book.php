@@ -3,14 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Genre extends Model
+class Book extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'title',
+        'author',
+        'year',
+        'genre_id', // ✅ DAPAT NANDITO — hindi 'genre'
+    ];
 
-    public function books(): HasMany
+    // ✅ Pangalan ay SINGULAR — 'genre' HINDI 'genres'
+    public function genre(): BelongsTo
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(Genre::class);
     }
 }

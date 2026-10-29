@@ -9,7 +9,7 @@ class Genre extends Model
 {
     protected $fillable = ['name'];
 
-    public function books(): HasMany
+    public function books(): HasMany // ✅ PLURAL
     {
         return $this->hasMany(Book::class);
     }

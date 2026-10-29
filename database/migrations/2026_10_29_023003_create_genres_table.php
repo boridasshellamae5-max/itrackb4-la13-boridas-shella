@@ -6,32 +6,35 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
+    public function up()
     {
-        // 1. Gawin muna ang genres table
+        // 1. Gumawa ng genres table
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        // 2. Pagkatapos, idagdag ang genre_id sa movies
-        Schema::table('movies', function (Blueprint $table) {
-            // Kung may lumang 'genre' text column, burahin muna
-            if (Schema::hasColumn('movies', 'genre')) {
+        // 2. Tanggalin ang lumang 'genre' column LANG KUNG MERON
+        if (Schema::hasColumn('books', 'genre')) {
+            Schema::table('books', function (Blueprint $table) {
                 $table->dropColumn('genre');
-            }
-            // Idagdag ang bagong foreign key
+            });
+        }
+
+        // 3. Magdagdag ng genre_id column sa books
+        Schema::table('books', function (Blueprint $table) {
             $table->foreignId('genre_id')->constrained();
         });
     }
 
-    public function down(): void
+    public function down()
     {
-        Schema::table('movies', function (Blueprint $table) {
+        Schema::dropIfExists('genres');
+
+        Schema::table('books', function (Blueprint $table) {
             $table->dropForeign(['genre_id']);
             $table->dropColumn('genre_id');
         });
-        Schema::dropIfExists('genres');
     }
 };
