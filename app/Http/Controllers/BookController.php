@@ -5,30 +5,73 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; // ✅ DAPAT ITO
 
 class BookController extends Controller
 {
-    public function index(Request $request)
+    // ✅ 1. INDEX — Listahan + Genre filters
+    public function index()
     {
-        // ✅ I-ENABLE ANG QUERY LOGGING — DAPAT NAKASULAT ITO
-        DB::enableQueryLog();
-
-        $genre_id = $request->query('genre_id');
-        $query = Book::with('genre'); // ✅ Eager loading → magiging 3 queries lang
-
-        if ($genre_id) {
-            $query->where('genre_id', $genre_id);
-        }
-
-        $books = $query->get();
+        $books = Book::with('genre')->get();
         $genres = Genre::all();
-
-        // ✅ I-check ang bilang
-        // dd(DB::getQueryLog()); // i-uncomment para makita ang listahan
 
         return view('books.index', compact('books', 'genres'));
     }
 
-    // ... ang natitirang code (create, store) ay mananatili pareho
+    // ✅ 2. SHOW — Ipakita ang isang libro
+    public function show(Book $book)
+    {
+        return view('books.show', compact('book'));
+    }
+
+    // ✅ 3. CREATE — Form para magdagdag
+    public function create()
+    {
+        $genres = Genre::all();
+        return view('books.create', compact('genres'));
+    }
+
+    // ✅ 4. STORE — I-save ang bagong libro
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title'     => 'required|string|max:255',
+            'author'    => 'required|string|max:255',
+            'year'      => 'required|integer|min:1000|max:' . date('Y'),
+            'genre_id'  => 'required|exists:genres,id',
+        ]);
+
+        Book::create($validated);
+
+        return redirect()->route('books.index');
+    }
+
+    // ✅ 5. EDIT — Form para magbago
+    public function edit(Book $book)
+    {
+        $genres = Genre::all();
+        return view('books.edit', compact('book', 'genres'));
+    }
+
+    // ✅ 6. UPDATE — I-save ang pagbabago
+    public function update(Request $request, Book $book)
+    {
+        $validated = $request->validate([
+            'title'     => 'required|string|max:255',
+            'author'    => 'required|string|max:255',
+            'year'      => 'required|integer|min:1000|max:' . date('Y'),
+            'genre_id'  => 'required|exists:genres,id',
+        ]);
+
+        $book->update($validated);
+
+        return redirect()->route('books.index');
+    }
+
+    // ✅ 7. DESTROY — Burahin ang libro
+    public function destroy(Book $book)
+    {
+        $book->delete();
+
+        return redirect()->route('books.index');
+    }
 }

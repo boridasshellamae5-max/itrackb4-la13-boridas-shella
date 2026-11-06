@@ -10,45 +10,35 @@ class BookSeeder extends Seeder
 {
     public function run()
     {
-        // ✅ UNANG GAWIN: Gumawa muna ng Genres
-        $fantasy = Genre::create(['name' => 'Fantasy']);
-        $classic = Genre::create(['name' => 'Classic']);
-        $romance = Genre::create(['name' => 'Romance']);
+        // ✅ GUMAGAWA NG GENRES DITO — kaya hindi na kailangan ng hiwalay na GenreSeeder
+        $fantasy = Genre::firstOrCreate(['name' => 'Fantasy']);
+        $classic = Genre::firstOrCreate(['name' => 'Classic']);
+        $romance = Genre::firstOrCreate(['name' => 'Romance']);
 
-        // ✅ PANGALAWA: Gumawa ng Books — gamitin ang tamang column na genre_id
-        Book::create([
-            'title'    => 'Harry Potter and the Philosopher\'s Stone',
-            'author'   => 'J.K. Rowling',
-            'year'     => 1997,
-            'genre_id' => $fantasy->id,
-        ]);
+        // ✅ GUMAGAWA NG BOOKS — gamit ang firstOrCreate para hindi magdoble
+        Book::firstOrCreate(
+            ['title' => 'Harry Potter and the Philosopher\'s Stone'],
+            ['author' => 'J.K. Rowling', 'year' => 1997, 'genre_id' => $fantasy->id]
+        );
 
-        Book::create([
-            'title'    => 'The Great Gatsby',
-            'author'   => 'F. Scott Fitzgerald',
-            'year'     => 1925,
-            'genre_id' => $classic->id,
-        ]);
+        Book::firstOrCreate(
+            ['title' => 'The Great Gatsby'],
+            ['author' => 'F. Scott Fitzgerald', 'year' => 1925, 'genre_id' => $classic->id]
+        );
 
-        Book::create([
-            'title'    => 'Pride and Prejudice',
-            'author'   => 'Jane Austen',
-            'year'     => 1813,
-            'genre_id' => $romance->id,
-        ]);
+        Book::firstOrCreate(
+            ['title' => 'Pride and Prejudice'],
+            ['author' => 'Jane Austen', 'year' => 1813, 'genre_id' => $romance->id]
+        );
 
-        Book::create([
-            'title'    => 'The Hobbit',
-            'author'   => 'J.R.R. Tolkien',
-            'year'     => 1937,
-            'genre_id' => $fantasy->id,
-        ]);
+        Book::firstOrCreate(
+            ['title' => 'The Hobbit'],
+            ['author' => 'J.R.R. Tolkien', 'year' => 1937, 'genre_id' => $fantasy->id]
+        );
 
-        Book::create([
-            'title'    => 'Romeo and Juliet',
-            'author'   => 'William Shakespeare',
-            'year'     => 1597,
-            'genre_id' => $romance->id,
-        ]);
+        Book::firstOrCreate(
+            ['title' => 'Romeo and Juliet'],
+            ['author' => 'William Shakespeare', 'year' => 1597, 'genre_id' => $romance->id]
+        );
     }
 }

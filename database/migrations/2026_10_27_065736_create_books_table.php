@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->integer('year');
+            $table->foreignId('genre_id')->constrained('genres')->onDelete('cascade');
             $table->timestamps();
         });
     }

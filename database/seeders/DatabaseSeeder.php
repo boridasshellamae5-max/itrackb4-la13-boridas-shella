@@ -6,8 +6,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $this->call(BookSeeder::class); // ✅ DAPAT NAKASULAT ITO — WALANG IBANG TAWAG
+        $this->call(BookSeeder::class);
     }
 }

@@ -1,6 +1,10 @@
 <?php
-
+ use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MovieController;
 
-Route::resource('movies', MovieController::class);
+// BEFORE
+// Route::resource('books', BookController::class)
+//     ->only(['index', 'show', 'create', 'store']);
+
+// AFTER
+Route::resource('books', BookController::class);
