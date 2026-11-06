@@ -13,10 +13,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('director');
             $table->integer('year');
-            $table->boolean('is_featured');
-            $table->string('description')->nullable();
+            $table->foreignId('genre_id')->constrained(); // ✅ ITO ANG KULANG
+            $table->boolean('is_featured')->default(false);
+            $table->text('description')->nullable();
             $table->timestamps();
-            // WALA DITO ANG genre o genre_id — idaragdag sa pangalawang migration
         });
     }
 

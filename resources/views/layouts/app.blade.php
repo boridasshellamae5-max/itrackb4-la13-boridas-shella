@@ -3,39 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books — Lab Activity 10</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Movie Flex</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 40px;
+        }
+        .nav-buttons {
+            margin: 20px 0;
+        }
+        .btn {
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .btn-primary {
+            background: #0066ff;
+            color: white;
+        }
+        .btn-outline {
+            border: 1px solid #0066ff;
+            color: #0066ff;
+        }
+        a {
+            color: #0066ff;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            {{-- Palitan ang Subjects → Books --}}
-            <a class="navbar-brand" href="{{ route('books.index') }}">Book Library</a>
-            
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav me-auto">
-                    <a class="nav-link" href="{{ url('/') }}">Home</a>
-                    <a class="nav-link" href="{{ route('books.index') }}">Books</a>
-                </div>
-            </div>
 
-            {{-- Palitan ang "Add Subject" → "Add Book" --}}
-            <a href="{{ route('books.create') }}" class="btn btn-success">+ Add New Book</a>
-        </div>
-    </nav>
+    <h1>Movie Flex</h1>
+    <p>Prepared by: Aira Basco</p>
 
-    <div class="container mt-4">
-        {{-- Ipakita ang mensahe kung may success --}}
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        {{-- Dito papasok ang laman ng ibang pahina --}}
-        @yield('content')
+    <div class="nav-buttons">
+        <a href="{{ route('movies.index') }}" class="btn btn-primary">All Movies</a>
+        <a href="#" class="btn btn-outline">Featured Movie</a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @yield('content')
+
 </body>
 </html>
