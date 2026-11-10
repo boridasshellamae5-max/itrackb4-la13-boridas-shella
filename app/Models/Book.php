@@ -2,21 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Book extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'author',
         'year',
-        'genre_id', // ✅ DAPAT NANDITO — hindi 'genre'
+        'is_filipino',
+        'description',
     ];
 
-    // ✅ Pangalan ay SINGULAR — 'genre' HINDI 'genres'
-    public function genre(): BelongsTo
+    protected function casts(): array
     {
-        return $this->belongsTo(Genre::class);
+        return [
+            'is_filipino' => 'boolean',
+            'year' => 'integer',
+        ];
     }
 }

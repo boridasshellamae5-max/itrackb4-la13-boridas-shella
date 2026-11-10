@@ -1,10 +1,15 @@
 <?php
- use App\Http\Controllers\BookController;
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BooksController;
 
-// BEFORE
-// Route::resource('books', BookController::class)
-//     ->only(['index', 'show', 'create', 'store']);
 
-// AFTER
-Route::resource('books', BookController::class);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Books Routes
+Route::get('/books', [BooksController::class, 'index'])->name('books.index');
+Route::get('/books/create', [BooksController::class, 'create'])->name('books.create');
+Route::post('/books', [BooksController::class, 'store'])->name('books.store');
+Route::get('/books/{id}', [BooksController::class, 'show'])->name('books.show');

@@ -1,47 +1,18 @@
 @extends('layouts.app')
 
-@section('title', $book['title'])
-
 @section('content')
+    <h2 class="mt-4 mb-3">Book Details</h2>
+    
+    <dl class="row">
+        <dt class="col-sm-3">Pamagat</dt>
+        <dd class="col-sm-9">{{ $book['title'] }}</dd>
 
-<div class="container mt-4">
+        <dt class="col-sm-3">May-akda</dt>
+        <dd class="col-sm-9">{{ $book['author'] }}</dd>
 
-    <h1>{{ $book['title'] }}</h1>
+        <dt class="col-sm-3">Taon</dt>
+        <dd class="col-sm-9">{{ $book['year'] }}</dd>
+    </dl>
 
-    <table class="table table-bordered">
-
-        <tr>
-            <th>ID</th>
-            <td>{{ $book['id'] }}</td>
-        </tr>
-
-        <tr>
-            <th>Title</th>
-            <td>{{ $book['title'] }}</td>
-        </tr>
-
-        <tr>
-            <th>Author</th>
-            <td>{{ $book['author'] }}</td>
-        </tr>
-
-        <tr>
-            <th>Year</th>
-            <td>{{ $book['year'] }}</td>
-        </tr>
-
-        <tr>
-            <th>Category</th>
-            <td>{{ $book['category'] }}</td>
-        </tr>
-
-    </table>
-
-    <a href="{{ route('books.index') }}"
-       class="btn btn-secondary">
-        Back to Books
-    </a>
-
-</div>
-
+    <a href="{{ route('books.index') }}" class="btn btn-secondary">← Back to Book List</a>
 @endsection

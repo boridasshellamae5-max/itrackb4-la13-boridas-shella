@@ -1,97 +1,89 @@
 @extends('layouts.app')
 
 @section('content')
-<h1 class="mb-4">Books</h1>
+<div class="container">
+    <h2 class="text-center mb-3">My Book List</h2>
+    <p class="text-center text-muted mb-5">Prepared by: Jose O. Obogne Jr.</p>
 
-{{-- Genre Filter Buttons --}}
-<div class="mb-3">
-    <a href="{{ route('books.index') }}" class="btn btn-secondary">All Books</a>
-    @foreach ($genres as $genre)
-        <a href="{{ route('books.index', ['genre_id' => $genre->id]) }}" 
-           class="btn 
-              @if($genre->name === 'Fantasy') btn-info
-              @elseif($genre->name === 'Classic') btn-warning
-              @elseif($genre->name === 'Romance') btn-danger text-white
-              @else btn-secondary @endif">
-            {{ $genre->name }}
-        </a>
-    @endforeach
-</div>
-
-{{-- Filter Form --}}
-<div class="card mb-4">
-    <div class="card-body">
-        <h5 class="card-title">Filter Books</h5>
-        <form action="{{ route('books.index') }}" method="GET" class="row g-3">
-            <div class="col-md-5">
-                <label class="form-label">Category</label>
-                <select name="genre_id" class="form-select" onchange="this.form.submit()">
-                    <option value="">All Categories</option>
-                    @foreach ($genres as $genre)
-                        <option value="{{ $genre->id }}" 
-                            {{ request('genre_id') == $genre->id ? 'selected' : '' }}>
-                            {{ $genre->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-4 align-self-end">
-                <a href="{{ route('books.index') }}" class="btn btn-secondary">Reset</a>
-            </div>
-        </form>
+    {{-- Filter Info --}}
+    <div class="alert alert-light border mb-3">
+        <strong>Showing:</strong>
+        @if($author && $year)
+            {{ $author }} — published in {{ $year }}
+        @elseif($author)
+            By {{ $author }} — All Years
+        @elseif($year)
+            Published in {{ $year }} — All Authors
+        @else
+            All Books
+        @endif
     </div>
-</div>
 
-{{-- Books Table --}}
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">All Books</h5>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Year</th>
-                        <th>Category</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($books as $book)
-                    <tr>
-                        <td>{{ $book->id }}</td>
-                        <td>{{ $book->title }}</td>
-                        <td>{{ $book->author }}</td>
-                        <td>{{ $book->year }}</td>
-                        {{-- ✅ Walang laman ang loob ng Category --}}
-                        <td></td>
-                        <td>
-                            <button class="btn btn-info btn-sm">View</button>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="text-center text-muted">
-                            No books found.
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    {{-- Filter by Author --}}
+    <div class="mb-3">
+        <strong>Filter by Author:</strong><br>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['author' => 'Jose Rizal'])) }}" class="btn btn-sm btn-outline-primary m-1">Jose Rizal</a>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['author' => 'Jose de la Cruz'])) }}" class="btn btn-sm btn-outline-primary m-1">Jose de la Cruz</a>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['author' => 'Francisco Balagtas'])) }}" class="btn btn-sm btn-outline-primary m-1">Francisco Balagtas</a>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['author' => 'Lualhati Bautista'])) }}" class="btn btn-sm btn-outline-primary m-1">Lualhati Bautista</a>
+    </div>
+
+    {{-- Filter by Year --}}
+    <div class="mb-3">
+        <strong>Filter by Year:</strong><br>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['year' => '1887'])) }}" class="btn btn-sm btn-outline-secondary m-1">1887</a>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['year' => '1891'])) }}" class="btn btn-sm btn-outline-secondary m-1">1891</a>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['year' => '1734'])) }}" class="btn btn-sm btn-outline-secondary m-1">1734</a>
+        <a href="{{ route('books.index', array_merge(request()->query(), ['year' => '1983'])) }}" class="btn btn-sm btn-outline-secondary m-1">1983</a>
+    </div>
+
+    {{-- Clear Filters --}}
+    <div class="mb-4">
+        <a href="{{ route('books.index') }}" class="btn btn-sm btn-danger">Clear All Filters</a>
+    </div>
+
+    {{-- ✅ ADD NEW BOOK BUTTON --}}
+    <div class="mb-4">
+        <a href="{{ route('books.create') }}" class="btn btn-success">➕ Add New Book</a>
+    </div>
+
+    {{-- Success Message --}}
+    @if(session('success'))
+        <div class="alert alert-success mb-3">
+            {{ session('success') }}
         </div>
-    </div>
+    @endif
+
+    {{-- Books Table --}}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Pamagat</th>
+                <th>May-akda</th>
+                <th>Taon</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($books as $index => $book)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>
+                    @if ($book->author === 'Jose Rizal')
+                        <strong class="text-danger">{{ $book->title }} ⭐</strong>
+                    @else
+                        {{ $book->title }}
+                    @endif
+                </td>
+                <td>{{ $book->author }}</td>
+                <td>{{ $book->year }}</td>
+                <td>
+                    <a href="{{ route('books.show', $book->id) }}" class="btn btn-sm btn-primary">View</a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
-
-{{-- Queries Counter — nagpapakita ng 3 --}}
-<p class="mt-3 text-muted">
-    Queries: {{ count(\Illuminate\Support\Facades\DB::getQueryLog()) }}
-</p>
-
-<div class="mt-4">
-    <a href="{{ route('books.create') }}" class="btn btn-success">+ Add New Book</a>
-</div>
-
-<p class="mt-5 text-muted text-center">Prepared by: Amor Tonio</p>
 @endsection

@@ -3,42 +3,50 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
-use App\Models\Genre;
 use Illuminate\Database\Seeder;
 
 class BookSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        // ✅ GUMAGAWA NG GENRES DITO — kaya hindi na kailangan ng hiwalay na GenreSeeder
-        $fantasy = Genre::firstOrCreate(['name' => 'Fantasy']);
-        $classic = Genre::firstOrCreate(['name' => 'Classic']);
-        $romance = Genre::firstOrCreate(['name' => 'Romance']);
+        Book::create([
+            'title' => 'Noli Me Tangere',
+            'author' => 'Jose Rizal',
+            'year' => 1887,
+            'is_filipino' => true,
+            'description' => 'Isang nobela tungkol sa lipunan ng Pilipinas sa ilalim ng mga Kastila.',
+        ]);
 
-        // ✅ GUMAGAWA NG BOOKS — gamit ang firstOrCreate para hindi magdoble
-        Book::firstOrCreate(
-            ['title' => 'Harry Potter and the Philosopher\'s Stone'],
-            ['author' => 'J.K. Rowling', 'year' => 1997, 'genre_id' => $fantasy->id]
-        );
+        Book::create([
+            'title' => 'El Filibusterismo',
+            'author' => 'Jose Rizal',
+            'year' => 1891,
+            'is_filipino' => true,
+            'description' => 'Ang ikalawang nobela ni Rizal na patungkol sa himagsikan.',
+        ]);
 
-        Book::firstOrCreate(
-            ['title' => 'The Great Gatsby'],
-            ['author' => 'F. Scott Fitzgerald', 'year' => 1925, 'genre_id' => $classic->id]
-        );
+        Book::create([
+            'title' => 'Florante at Laura',
+            'author' => 'Francisco Balagtas',
+            'year' => 1838,
+            'is_filipino' => true,
+            'description' => 'Isang tula na nagpapakita ng pag-ibig at kalayaan.',
+        ]);
 
-        Book::firstOrCreate(
-            ['title' => 'Pride and Prejudice'],
-            ['author' => 'Jane Austen', 'year' => 1813, 'genre_id' => $romance->id]
-        );
+        Book::create([
+            'title' => 'Ninay',
+            'author' => 'Pedro Paterno',
+            'year' => 1885,
+            'is_filipino' => true,
+            'description' => 'Unang nobelang isinulat ng isang Pilipino sa wikang Kastila.',
+        ]);
 
-        Book::firstOrCreate(
-            ['title' => 'The Hobbit'],
-            ['author' => 'J.R.R. Tolkien', 'year' => 1937, 'genre_id' => $fantasy->id]
-        );
-
-        Book::firstOrCreate(
-            ['title' => 'Romeo and Juliet'],
-            ['author' => 'William Shakespeare', 'year' => 1597, 'genre_id' => $romance->id]
-        );
+        Book::create([
+            'title' => 'The Woman Who Had Two Navels',
+            'author' => 'Nick Joaquin',
+            'year' => 1961,
+            'is_filipino' => true,
+            'description' => '', // intentionally left blank — nullable ginamit dito
+        ]);
     }
 }
