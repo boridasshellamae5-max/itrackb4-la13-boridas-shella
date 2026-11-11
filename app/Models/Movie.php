@@ -2,23 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Movie extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'title',
         'director',
         'year',
-        'genre_id', // ✅ NANDITO DAPAT
+        'genre_id',
         'is_featured',
         'description',
     ];
 
-    public function genre()
+    protected $casts = [
+        'is_featured' => 'boolean',
+    ];
+
+    public function genre(): BelongsTo
     {
         return $this->belongsTo(Genre::class);
     }

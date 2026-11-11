@@ -2,87 +2,45 @@
 
 namespace Database\Seeders;
 
-use App\Models\Movie;
 use App\Models\Genre;
+use App\Models\Movie;
 use Illuminate\Database\Seeder;
 
-class MovieSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Mga Genre — Unang gawin
+        // Mga Genre
         $sciFi  = Genre::create(['name' => 'Sci-Fi']);
         $action = Genre::create(['name' => 'Action']);
         $crime  = Genre::create(['name' => 'Crime']);
 
-        // Pelikula 1
-        Movie::create([
-            'title'       => 'Inception',
-            'director'    => 'Christopher Nolan',
-            'year'        => 2010,
-            'is_featured' => true,
-            'genre_id'    => $sciFi->id,
-            'description' => 'A thief who steals corporate secrets through dream-sharing technology.',
-        ]);
+        // ✅ 20+ Pelikula — iba-iba ang genre at taon
+        $movies = [
+            ['title' => 'Inception', 'director' => 'Christopher Nolan', 'year' => 2010, 'genre_id' => $sciFi->id, 'is_featured' => true, 'description' => 'A thief who steals corporate secrets through dream-sharing technology.'],
+            ['title' => 'Interstellar', 'director' => 'Christopher Nolan', 'year' => 2014, 'genre_id' => $sciFi->id, 'is_featured' => true, 'description' => 'A team travels through a wormhole in space.'],
+            ['title' => 'The Matrix', 'director' => 'The Wachowskis', 'year' => 1999, 'genre_id' => $sciFi->id, 'is_featured' => false, 'description' => 'A computer hacker learns the shocking truth.'],
+            ['title' => 'Blade Runner', 'director' => 'Ridley Scott', 'year' => 1982, 'genre_id' => $sciFi->id, 'is_featured' => false, 'description' => 'A blade runner must pursue and terminate four replicants.'],
+            ['title' => 'Avatar', 'director' => 'James Cameron', 'year' => 2009, 'genre_id' => $sciFi->id, 'is_featured' => true, 'description' => 'A paraplegic Marine dispatched to the moon Pandora.'],
+            ['title' => 'The Dark Knight', 'director' => 'Christopher Nolan', 'year' => 2008, 'genre_id' => $action->id, 'is_featured' => true, 'description' => 'Batman faces his greatest psychological and physical test.'],
+            ['title' => 'The Expandables', 'director' => 'Michael Bay', 'year' => 2010, 'genre_id' => $action->id, 'is_featured' => false, 'description' => 'A team of elite mercenaries takes on a dangerous mission.'],
+            ['title' => 'Avengers: Endgame', 'director' => 'Russo Brothers', 'year' => 2019, 'genre_id' => $action->id, 'is_featured' => true, 'description' => 'The Avengers assemble one last time.'],
+            ['title' => 'Mad Max: Fury Road', 'director' => 'George Miller', 'year' => 2015, 'genre_id' => $action->id, 'is_featured' => true, 'description' => 'A woman rebels against a tyrannical ruler.'],
+            ['title' => 'John Wick', 'director' => 'Chad Stahelski', 'year' => 2014, 'genre_id' => $action->id, 'is_featured' => false, 'description' => 'An ex-hit-man comes out of retirement.'],
+            ['title' => 'Mission Impossible', 'director' => 'Brian De Palma', 'year' => 1996, 'genre_id' => $action->id, 'is_featured' => false, 'description' => 'A secret agent is framed for the murder of his team.'],
+            ['title' => 'The Godfather', 'director' => 'Francis Ford Coppola', 'year' => 1972, 'genre_id' => $crime->id, 'is_featured' => true, 'description' => 'The aging patriarch transfers control of his empire.'],
+            ['title' => 'The Godfather Part II', 'director' => 'Francis Ford Coppola', 'year' => 1974, 'genre_id' => $crime->id, 'is_featured' => true, 'description' => 'The early life and career of Vito Corleone.'],
+            ['title' => 'Goodfellas', 'director' => 'Martin Scorsese', 'year' => 1990, 'genre_id' => $crime->id, 'is_featured' => false, 'description' => 'The story of Henry Hill and his life in the mob.'],
+            ['title' => 'Scarface', 'director' => 'Brian De Palma', 'year' => 1983, 'genre_id' => $crime->id, 'is_featured' => false, 'description' => 'In Miami, a determined Cuban immigrant takes over a drug cartel.'],
+            ['title' => 'The Departed', 'director' => 'Martin Scorsese', 'year' => 2006, 'genre_id' => $crime->id, 'is_featured' => true, 'description' => 'An undercover cop and a mole try to identify each other.'],
+            ['title' => 'Pulp Fiction', 'director' => 'Quentin Tarantino', 'year' => 1994, 'genre_id' => $crime->id, 'is_featured' => true, 'description' => 'The lives of two mob hitmen, a boxer, and others intertwine.'],
+            ['title' => 'Fight Club', 'director' => 'David Fincher', 'year' => 1999, 'genre_id' => $crime->id, 'is_featured' => false, 'description' => 'An insomniac office worker forms an underground fight club.'],
+            ['title' => 'Casino', 'director' => 'Martin Scorsese', 'year' => 1995, 'genre_id' => $crime->id, 'is_featured' => false, 'description' => 'A tale of greed, deception and power in Las Vegas.'],
+            ['title' => 'Heat', 'director' => 'Michael Mann', 'year' => 1995, 'genre_id' => $crime->id, 'is_featured' => true, 'description' => 'A group of high-end professional thieves start to feel the heat.'],
+        ];
 
-        // Pelikula 2
-        Movie::create([
-            'title'       => 'The Dark Knight',
-            'director'    => 'Christopher Nolan',
-            'year'        => 2008,
-            'is_featured' => true,
-            'genre_id'    => $action->id,
-            'description' => 'When the menace known as the Joker wreaks havoc on Gotham.',
-        ]);
-
-        // Pelikula 3
-        Movie::create([
-            'title'       => 'Interstellar',
-            'director'    => 'Christopher Nolan',
-            'year'        => 2014,
-            'is_featured' => true,
-            'genre_id'    => $sciFi->id,
-            'description' => 'A team travels through a wormhole in space to ensure humanity\'s survival.',
-        ]);
-
-        // Pelikula 4
-        Movie::create([
-            'title'       => 'The Matrix',
-            'director'    => 'The Wachowskis',
-            'year'        => 1999,
-            'is_featured' => false,
-            'genre_id'    => $sciFi->id,
-            'description' => null,
-        ]);
-
-        // Pelikula 5
-        Movie::create([
-            'title'       => 'The Godfather',
-            'director'    => 'Francis Ford Coppola',
-            'year'        => 1972,
-            'is_featured' => false,
-            'genre_id'    => $crime->id,
-            'description' => 'The aging patriarch of an organized crime dynasty transfers control.',
-        ]);
-
-        // Pelikula 6
-        Movie::create([
-            'title'       => 'Avengers: Endgame',
-            'director'    => 'Anthony Russo and Joe Russo',
-            'year'        => 2019,
-            'is_featured' => true,
-            'genre_id'    => $action->id,
-            'description' => null,
-        ]);
-
-        // ✅ Pelikula 7 — The Expandables
-        Movie::create([
-            'title'       => 'The Expandables',
-            'director'    => 'Michael Bay',
-            'year'        => 2010,
-            'is_featured' => true,
-            'genre_id'    => $action->id,
-            'description' => 'A team of elite mercenaries takes on a dangerous mission.',
-        ]);
+        foreach ($movies as $m) {
+            Movie::create($m);
+        }
     }
 }
