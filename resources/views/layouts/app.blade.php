@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Movie Collection')</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Inventory System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    {{-- Navigation Bar --}}
+
     <nav class="navbar navbar-expand-lg bg-light border-bottom mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">Movie Collection</a>
+        <div class="container-fluid">
+            <a class="navbar-brand fw-semibold" href="{{ route('home') }}">Product Inventory</a>
 
             <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#mainNav"
-                    aria-controls="mainNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -28,18 +24,17 @@
                            href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('movies.*') ? 'active' : '' }}"
-                           href="{{ route('movies.index') }}">All Movies</a>
+                        <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}"
+                           href="{{ route('products.index') }}">All Products</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    {{-- Main Content --}}
-    <main class="container">
+    <div class="container">
         @yield('content')
-    </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

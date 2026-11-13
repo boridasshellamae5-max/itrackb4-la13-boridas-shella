@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ProductController;  // ← IMPORTANT: Add this line
 
+// Home Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::resource('movies', MovieController::class);
+
+// Products Routes — This creates products.index, products.create, etc.
+Route::resource('products', ProductController::class);

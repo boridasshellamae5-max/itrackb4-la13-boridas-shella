@@ -3,18 +3,14 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\Paginator;  // ← ADD THIS
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void
-    {
-        //
-    }
+    public function register(): void {}
 
     public function boot(): void
     {
-        // ✅ Ito ang nagpapaganda at nagpapalabas ng Previous/Next buttons
-        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFive();  // ← ADD THIS
     }
 }

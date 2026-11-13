@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
-use App\Models\Genre;
-use Illuminate\View\View;
+use App\Models\Product;    // ← ADD THIS LINE
+use App\Models\Category;  // ← ADD THIS LINE
 
 class HomeController extends Controller
 {
-    public function index(): View
+    public function index()
     {
-        $movieCount = Movie::count();
-        $genreCount = Genre::count();
-
-        return view('home', compact('movieCount', 'genreCount'));
+        return view('home', [
+            'productCount' => Product::count(),
+            'categoryCount' => Category::count(),
+        ]);
     }
 }

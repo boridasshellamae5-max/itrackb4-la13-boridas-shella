@@ -1,54 +1,38 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
-
 @section('content')
-<div class="container py-4">
-
-    {{-- Header Section --}}
-    <div class="card mb-4">
-        <div class="card-body">
-            <h1 class="fw-bold">Movie Collection Management System</h1>
-            <p class="text-muted mb-4">
-                Keep track of your favorite films across different genres, directors, and release years — all in one place.
-            </p>
-            <a href="{{ route('movies.index') }}" class="btn btn-primary">
-                View All Movies
-            </a>
-        </div>
+<div class="py-4">
+    <!-- Hero Section -->
+    <div class="p-5 bg-light rounded mb-4">
+        <h1>Product Inventory System</h1>
+        <p class="lead">Track and manage your store products, categories, stock levels, and availability — all in one place.</p>
+        <a href="{{ route('products.index') }}" class="btn btn-primary">View all products</a>
     </div>
 
-    {{-- Stats Row --}}
-    <div class="row mb-4">
+    <!-- Counts Row -->
+    <div class="row g-4 mb-4">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="display-4 fw-bold">{{ $movieCount }}</h2>
-                    <p class="text-muted mb-0">MOVIES</p>
-                </div>
+            <div class="border rounded p-3 bg-white">
+                <p class="text-muted small mb-1">PRODUCTS</p>
+                <h2 class="display-4 fw-bold">{{ $productCount }}</h2>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="display-4 fw-bold">{{ $genreCount }}</h2>
-                    <p class="text-muted mb-0">GENRES</p>
-                </div>
+            <div class="border rounded p-3 bg-white">
+                <p class="text-muted small mb-1">CATEGORIES</p>
+                <h2 class="display-4 fw-bold">{{ $categoryCount }}</h2>
             </div>
         </div>
     </div>
 
-    {{-- Prepared By Section --}}
-    <div class="card">
-        <div class="card-body d-flex align-items-center gap-3">
-            <img src="{{ asset('img/profile.jpg') }}" alt="Profile" width="80" height="80" class="rounded-circle border">
-            <div>
-                <p class="mb-0"><strong>PREPARED BY</strong></p>
-                <h5 class="fw-bold mb-1">Aira Basco</h5>
-                <p class="text-muted mb-0">BS Information Technology · 4th Year · Block A</p>
-            </div>
+    <!-- Prepared By Section -->
+    <div class="border rounded p-3 bg-white d-flex align-items-center gap-3">
+        <img src="{{ asset('img/profile.jpg') }}" alt="Profile" width="72" height="72" class="rounded-circle" onerror="this.src='https://ui-avatars.com/api/?name=Shella+Mae&background=random&size=72'">
+        <div>
+            <p class="text-muted small mb-1">PREPARED BY</p>
+            <h5 class="mb-1">Shella Mae</h5>
+            <p class="text-muted small mb-0">BS Information Technology · Your Year · Your Block</p>
         </div>
     </div>
-
 </div>
 @endsection
